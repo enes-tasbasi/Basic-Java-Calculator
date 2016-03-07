@@ -2,19 +2,22 @@ package com.enes.calculator.app;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class Panel extends JPanel {
 		
 	private JButton[] b;
 	private JButton[] t;
-	private JLabel label;
+	private static JLabel label;
 	private String first = "";
 	private String second = "";
 	private String equation;
-	private Boolean clicked = false;
+	private Boolean numFirst = true;
 	private String sym = "";
-	private int fN;
+	private double fN;
+	private String text = "0";
 	
 		public Panel() {
 			
@@ -41,11 +44,11 @@ public class Panel extends JPanel {
 			}
 			
 			JButton equal = new JButton("=");
-			equal.addActionListener(new Listener3());
+		//	equal.addActionListener(new Listener3());
 			pnl2.add(equal);
 			
 			JButton clear = new JButton("Clear");
-			clear.addActionListener(new Listener4());
+		//	clear.addActionListener(new Listener4());
 			pnl2.add(clear);
 			
 			JPanel pnl3 = new JPanel();
@@ -59,91 +62,141 @@ public class Panel extends JPanel {
 				t[1] = new JButton("-");
 				t[2] = new JButton("x");
 				t[3] = new JButton("/");
-				t[i].addActionListener(new Listener2());
+			//	t[i].addActionListener(new Listener2());
 				pnl3.add(t[i]);
 			}
 		}
+			public static void update(String equation) {
+				label.setText(equation);
+			}
 			public class Listener1 implements ActionListener {
 			 public void actionPerformed(ActionEvent evt) {
-				 for(int i = 0; i < 10; i++) {
-					if (evt.getSource() == b[i]) {
-						if(clicked == false) {
-							first = first + i;
-							label.setText(first);
-						}
-						else if(clicked == true) {
-							second = second + i;
-							label.setText(first + sym + second);
-						}
-					}
+				 ArrayList<String> nums = new ArrayList<String>();
+				// for(int i = 0; i < 10; i++) {
+				 if(numFirst == true) {
+					 nums.add("0");
+				 }
+					 switch (evt.getActionCommand()) {
+					 case "0":
+						 nums.add(Integer.toString(0));
+						 text = text + 0;
+						 update(text);
+						 break;
+					 case "1":
+						 nums.add(Integer.toString(1));
+						 break;
+					 case "2":
+						 nums.add(Integer.toString(2));
+						 break;
+					 
+					 case "3":
+						 nums.add(Integer.toString(3));
+						 break;
+					 
+					 case "4":
+						 nums.add(Integer.toString(4));
+						 break;
+					 
+					case "5":
+						 nums.add(Integer.toString(5));
+						 break;
+					 
+					case "6":
+						 nums.add(Integer.toString(6));
+						 break;
+					
+					case "7":
+						 nums.add(Integer.toString(7));
+						 break;
+					
+					case "8":
+						 nums.add(Integer.toString(8));
+						 break;
+					
+					case "9":
+						 nums.add(Integer.toString(9));
+						 break;
+					
+					 }
+				 //}
+					 
+//					if (evt.getSource() == b[i]) {
+//						if(clicked == false) {
+//							first = first + i;
+//							label.setText(first);
+//						}
+//						else if(clicked == true) {
+//							second = second + i;
+//							label.setText(first + sym + second);
+//						}
+//					}
 				 }
 			  }
 			}
 			
-			public class Listener2 implements ActionListener {
-				public void actionPerformed(ActionEvent evt) {
-						if(evt.getActionCommand() == "+") {
-						  
-							  equation = "addition";
-				    		  label.setText(first + " + ");
-				    		  clicked = true;
-				    		  sym = " + ";
-						  
-						}
-						
-						else if(evt.getActionCommand() == "-") {
-							equation = "subtraction";
-				    		  label.setText(first + " - ");
-				    		  clicked = true;
-				    		  sym = " - ";
-						}
-						
-						else if(evt.getActionCommand() == "x") {
-							equation = "multiplication";
-				    		  label.setText(first + " x ");
-				    		  clicked = true;
-				    		  sym = " x ";
-						}
-						
-						else if(evt.getActionCommand() == "/") {
-							equation = "division";
-				    		  label.setText(first + " / ");
-				    		  clicked = true;
-				    		  sym = " / ";
-						}
-				}
-			}
+	//		public class Listener2 implements ActionListener {
+	//			public void actionPerformed(ActionEvent evt) {
+//						if(evt.getActionCommand() == "+") {
+//						  
+//							  equation = "addition";
+//				    		  label.setText(first + " + ");
+//				    		  clicked = true;
+//				    		  sym = " + ";
+//						  
+//						}
+//						
+//						else if(evt.getActionCommand() == "-") {
+//							equation = "subtraction";
+//				    		  label.setText(first + " - ");
+//				    		  clicked = true;
+//				    		  sym = " - ";
+//						}
+//						
+//						else if(evt.getActionCommand() == "x") {
+//							equation = "multiplication";
+//				    		  label.setText(first + " x ");
+//				    		  clicked = true;
+//				    		  sym = " x ";
+//						}
+//						
+//						else if(evt.getActionCommand() == "/") {
+//							equation = "division";
+//				    		  label.setText(first + " / ");
+//				    		  clicked = true;
+//				    		  sym = " / ";
+//						}
+//				}
+	//		}
 			
-			public class Listener3 implements ActionListener {
-				public void actionPerformed(ActionEvent e) {
-					Calculate cal = new Calculate();
-					switch (equation) {
-						case "addition":
-							fN = cal.addition(Integer.parseInt(first), Integer.parseInt(second));
-							break;
-						case "subtraction":
-							fN = cal.subtraction(Integer.parseInt(first), Integer.parseInt(second));
-							break;
-						case "multiplication":
-							fN = cal.multiplication(Integer.parseInt(first), Integer.parseInt(second));
-							break;
-						case "division":
-							fN = cal.division(Integer.parseInt(first), Integer.parseInt(second));
-							break;
-					}
-					label.setText(first + sym + second + " = " + fN);
-				}
-			}
+		//	public class Listener3 implements ActionListener {
+		//		public void actionPerformed(ActionEvent e) {
+//					Calculate cal = new Calculate();
+//					switch (equation) {
+//						case "addition":
+//							fN = cal.addition(Integer.parseInt(first), Integer.parseInt(second));
+//							break;
+//						case "subtraction":
+//							fN = cal.subtraction(Integer.parseInt(first), Integer.parseInt(second));
+//							break;
+//						case "multiplication":
+//							fN = cal.multiplication(Integer.parseInt(first), Integer.parseInt(second));
+//							break;
+//						case "division":
+//							fN = cal.division(Integer.parseInt(first), Integer.parseInt(second));
+//							break;
+//					}
+//					label.setText(first + sym + second + " = " + fN);
+//				}
+//			}
+//			
+//			public class Listener4 implements ActionListener {
+//				public void actionPerformed(ActionEvent e) {
+//					first = "";
+//					second = "";
+//					equation = "";
+//					clicked = false;
+//					
+//					label.setText("0");
+//				}
+//			}
 			
-			public class Listener4 implements ActionListener {
-				public void actionPerformed(ActionEvent e) {
-					first = "";
-					second = "";
-					equation = "";
-					clicked = false;
-					
-					label.setText("0");
-				}
-			}
-			
-}
