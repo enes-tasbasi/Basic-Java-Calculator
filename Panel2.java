@@ -48,7 +48,7 @@ public class Panel2 extends JPanel {
 		pnl2.add(equal);
 		
 		JButton clear = new JButton("Clear");
-	//	clear.addActionListener(new Listener4());
+		clear.addActionListener(new Listener4());
 		pnl2.add(clear);
 		
 		JPanel pnl3 = new JPanel();
@@ -186,6 +186,20 @@ public class Panel2 extends JPanel {
 						break;
 				}
 				label.setText(first + sym + second + " = " + fN);
+				first = Double.toString(fN);
 			}
+		}
+		
+		public class Listener4 implements ActionListener {
+			public void actionPerformed(ActionEvent evt) {
+				first = "";
+				second = "";
+				sym = "";
+				clicked = false;
+				label.setText("0");
+				con = false;
+				
+			}
+			
 		}
 }
